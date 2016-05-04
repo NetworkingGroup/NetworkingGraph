@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NetworkingGraph.iml" filepath="$PROJECT_DIR$/.idea/modules/NetworkingGraph.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NetworkingGraph_main.iml" filepath="$PROJECT_DIR$/.idea/modules/NetworkingGraph_main.iml" group="NetworkingGraph" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/NetworkingGraph_test.iml" filepath="$PROJECT_DIR$/.idea/modules/NetworkingGraph_test.iml" group="NetworkingGraph" />
+    </modules>
+  </component>
+</project>
