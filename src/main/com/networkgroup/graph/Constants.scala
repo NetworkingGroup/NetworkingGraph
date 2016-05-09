@@ -8,7 +8,8 @@ object Constants {
   val KEY_COUNT = "Count"
 
 
-  val PACKET_DATA_SIZE = 9
+  val PACKET_DATA_SIZE = 12
+  val INT_SIZE = 4
 
   val VALUES = Map(
     0 -> "Best of YouTube",

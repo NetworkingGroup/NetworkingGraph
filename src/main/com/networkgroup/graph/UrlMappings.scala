@@ -1,12 +1,10 @@
 package com.networkgroup.graph
 
-import com.google.gson.{JsonArray, JsonObject}
-import com.networkgroup.graph.Constants.{KEY_CATEGORY, KEY_COUNT, KEY_DATA}
+import freemarker.template.Configuration
 import spark.Spark._
 import spark._
-import spark.template.mustache.MustacheTemplateEngine
+import spark.template.freemarker.FreeMarkerEngine
 
-import scala.util.Random
 import scala.io.StdIn.readLine
 
 /**
@@ -25,12 +23,14 @@ object UrlMappings {
 
     port(serverPort)
     Spark.staticFileLocation("/")
+    val config = new Configuration
+    config.setClassForTemplateLoading(UrlMappings.getClass, "/")
 
     get("/", new TemplateViewRoute {
       override def handle(request: Request, response: Response): ModelAndView = {
-        new ModelAndView(Map.empty, "result.html.mustache")
+        new ModelAndView(Map.empty, "result.html.ftl")
       }
-    }, new MustacheTemplateEngine("./"))
+    }, new FreeMarkerEngine(config))
 
     get("/data", new Route {
       override def handle(request: Request, response: Response): AnyRef = {

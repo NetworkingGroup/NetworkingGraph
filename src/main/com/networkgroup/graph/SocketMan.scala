@@ -18,16 +18,28 @@ class SocketMan(port: Int) extends Runnable {
   private val socket = new DatagramSocket(port)
 
   private val readPacket = new DatagramPacket(new Array[Byte](PACKET_DATA_SIZE), 0, PACKET_DATA_SIZE)
+  private val writePacket = new DatagramPacket(new Array[Byte](INT_SIZE), 0, INT_SIZE)
   private val dataMap = MutMap[Int, Long]()
 
   override def run(): Unit = {
 
     while (true) {
       socket.receive(readPacket)
+      val buffer = ByteBuffer.wrap(readPacket.getData)
+      val index = buffer.getInt
+      val count = buffer.getLong
+      println(s"Received Data. (Index:$index, Value:$count)")
+
+      val outBuffer = ByteBuffer.allocate(INT_SIZE)
+      outBuffer.putInt(index)
+
+      writePacket.setAddress(readPacket.getAddress)
+      writePacket.setPort(readPacket.getPort)
+      writePacket.setData(outBuffer.array())
+      socket.send(writePacket)
 
       dataMap.synchronized {
-        val buffer = ByteBuffer.wrap(readPacket.getData)
-        dataMap += buffer.get().toInt -> buffer.getLong
+        dataMap += index.toInt -> count
       }
     }
   }
